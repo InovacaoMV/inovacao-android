@@ -1,4 +1,4 @@
-# inovacao-android
+# LISTA DE CONTATOS
 
 Minimo SDK: API 17</br>
 Linguagem: Java ou Kotlin</br>
@@ -25,7 +25,7 @@ Serão considerados bônus:</br>
 O aplicativo deverá ter uma tela de login para poder acessar o aplicativo, onde será informado os dados necessários de acordo com a documentação.
 
 ###### Funcionalidade 02
-O aplicativo deverá cadastro um usuário, onde será informado os dados necessários de acordo com a documentação.
+O aplicativo deverá cadastrar um usuário, onde será informado os dados necessários de acordo com a documentação.
 
 ###### Funcionalidade 03
 O aplicativo deverá atualizar os dados do usuário, onde será informado os dados necessários de acordo com a documentação. 
@@ -45,7 +45,7 @@ O aplicativo deverá listar todos os contato da lista do usuário logado no apli
 O aplicativo deverá atualizar um contato na lista, onde será informado os dados necessários de acordo com a documentação.
 
 ###### Funcionalidade 08
-O aplicativo deverá excluir o usuário, onde será informado os dados necessários de acordo com a documentação.
+O aplicativo deverá excluir um contato na lista, onde será informado os dados necessários de acordo com a documentação.
 
 
 ## DOCUMENTAÇÃO
@@ -55,4 +55,5 @@ https://inovacao-teste.herokuapp.com/api/swagger-ui.html
 
 ## CONCLUSÃO
 
+O layout do aplicativo fica por sua conta, então pode deixar sua criatividade fluir.</br>
 Crie um Fork desse repositório e envie um pull request.</br>
