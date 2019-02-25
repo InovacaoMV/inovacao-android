@@ -14,7 +14,7 @@ Serão considerados bônus:</br>
 - Uso do Volley ou Retrofit </br>
 - Uso do GSON </br>
 - Uso do Archtecture Components </br>
-- Uso do Recycler View </br>
+- Uso do RecyclerView </br>
 
 
 ## DESAFIO
