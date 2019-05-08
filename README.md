@@ -16,6 +16,9 @@ Serão considerados bônus:</br>
 - Uso do Archtecture Components </br>
 - Uso do RecyclerView </br>
 
+Testes Unitarios</br>
+-JUnit </br>
+
 
 ## DESAFIO
 
