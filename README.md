@@ -1,7 +1,7 @@
 # LISTA DE CONTATOS
 
 Minimo SDK: API 17</br>
-Linguagem: Java ou Kotlin</br>
+Linguagem: Kotlin</br>
 
 Serão consideradas funcionalidades completas se:</br>
 - O descritivo da funcionalidade for implementado completamente.</br>
