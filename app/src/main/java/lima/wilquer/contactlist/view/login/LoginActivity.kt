@@ -1,0 +1,84 @@
+package lima.wilquer.contactlist.view.login
+
+import android.support.v7.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_login.*
+import lima.wilquer.contactlist.R
+import lima.wilquer.contactlist.data.User
+import lima.wilquer.contactlist.view.user.UserContract
+import lima.wilquer.contactlist.view.user.UserPresenter
+
+class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.View {
+
+    override lateinit var presenter: UserContract.Presenter
+    private var email : String? = null
+    private var password : String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
+
+        button_login.setOnClickListener(this)
+        button_cadastrar.setOnClickListener(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(!this::presenter.isInitialized){
+            UserPresenter(this)
+        }
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.button_login -> {
+                if (checkValues()) {
+                    presenter.login(email!!, password!!)
+                } else {
+                    Toast.makeText(this, "Verifique se os campos então corretos.", Toast.LENGTH_LONG).show()
+                }
+            }
+            R.id.button_cadastrar -> {
+            }
+        }
+    }
+
+    fun checkValues(): Boolean {
+        if (edit_login.text.toString().isEmpty()) return false
+        if (edit_password.text.toString().isEmpty()) return false
+
+        email = edit_login.text.toString()
+        password = edit_password.text.toString()
+        return true
+    }
+
+    override fun setProgress(active: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun login(user: User) {
+        Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show()
+    }
+
+    override fun buscar(user: User) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun cadastrar(email: String, senha: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun delete(_id: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun atualizar(_id: String, email: String, senha: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun error(msg: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+}
