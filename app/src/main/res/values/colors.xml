@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    
+    <color name="corPrimaria">#58593F</color>
+    <color name="corSecundaria">#BDBF73</color>
+    <color name="corTerciaria">#8B8C58</color>
+</resources>
