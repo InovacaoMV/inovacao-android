@@ -8,15 +8,15 @@ interface UserContract {
     interface View : BaseView<Presenter> {
         fun setProgress(active: Boolean)
 
-        fun login(user: User)
+        fun loginUser(user: User?)
 
-        fun buscar(user: User)
+        fun buscarUser(user: User?)
 
-        fun cadastrar(email: String, senha: String)
+        fun cadastrarUser(user: User?)
 
-        fun delete(_id: String)
+        fun deleteUser(_id: String)
 
-        fun atualizar(_id: String, email: String, senha: String)
+        fun atualizarUser(user: User?)
 
         fun error(msg: String)
     }
