@@ -1,5 +1,6 @@
-package lima.wilquer.contactlist.view.login
+package lima.wilquer.contactlist.view.activities
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -45,7 +46,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
                 if (checkValues()) {
                     //presenter.atualizar(id, email!!, password!!)
                     presenter.delete(id)
-                    //presenter.cadastrar(email!!, password!!)
+                    //presenter.cadastrarContato(email!!, password!!)
                 } else {
                     Toast.makeText(this, "Verifique se os campos então corretos.", Toast.LENGTH_LONG).show()
                 }
@@ -69,6 +70,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
     override fun loginUser(user: User?) {
         id = user!!._id
         Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show()
+        val it = Intent(this@LoginActivity,HomeActivity::class.java)
+        it.putExtra("user", user)
+        startActivity(it)
     }
 
     override fun buscarUser(user: User?) {
