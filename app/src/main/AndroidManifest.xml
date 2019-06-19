@@ -24,6 +24,7 @@
         <activity
             android:name=".view.activities.HomeActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".view.activities.AdicionarEditarContato"/>
     </application>
 
 </manifest>

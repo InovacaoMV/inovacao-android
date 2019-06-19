@@ -45,8 +45,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
             R.id.button_cadastrar -> {
                 if (checkValues()) {
                     //presenter.atualizar(id, email!!, password!!)
-                    presenter.delete(id)
-                    //presenter.cadastrarContato(email!!, password!!)
+                    //presenter.delete(id)
+                    presenter.cadastrar(email!!, password!!)
                 } else {
                     Toast.makeText(this, "Verifique se os campos então corretos.", Toast.LENGTH_LONG).show()
                 }
@@ -68,11 +68,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
     }
 
     override fun loginUser(user: User?) {
-        id = user!!._id
         Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show()
-        val it = Intent(this@LoginActivity,HomeActivity::class.java)
+        val it = Intent(this@LoginActivity, HomeActivity::class.java)
         it.putExtra("user", user)
         startActivity(it)
+        finish()
     }
 
     override fun buscarUser(user: User?) {
@@ -81,6 +81,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
 
     override fun cadastrarUser(user: User?) {
         Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show()
+        val it = Intent(this@LoginActivity, HomeActivity::class.java)
+        it.putExtra("user", user)
+        startActivity(it)
+        finish()
     }
 
     override fun deleteUser(_id: String) {

@@ -33,8 +33,10 @@ class UserPresenter(val view: UserContract.View) : UserContract.Presenter {
 
                 override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                     //view.setProgress(false)
-                    response.body()?.let {
-                        view.loginUser(it[0])
+                    if (!response.body()!!.isEmpty()) {
+                        view.loginUser(response.body()!![0])
+                    } else {
+                        view.error("Não existe usuario com este login/senha.")
                     }
                 }
 
@@ -55,7 +57,11 @@ class UserPresenter(val view: UserContract.View) : UserContract.Presenter {
 
                 override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                     view.setProgress(false)
-                    view.buscarUser(response.body()?.get(0))
+                    if (!response.body()!!.isEmpty()) {
+                        view.buscarUser(response.body()!![0])
+                    } else {
+                        view.error("Nenhum usuário encontrado.")
+                    }
                 }
 
             })
@@ -82,7 +88,11 @@ class UserPresenter(val view: UserContract.View) : UserContract.Presenter {
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     //view.setProgress(false)
-                    view.cadastrarUser(response.body())
+                    if (response.isSuccessful) {
+                        view.cadastrarUser(response.body())
+                    } else {
+                        view.error(response.message())
+                    }
                 }
 
             })
@@ -138,7 +148,11 @@ class UserPresenter(val view: UserContract.View) : UserContract.Presenter {
 
                 override fun onResponse(call: Call<List<User>>, response: Response<List<User>>) {
                     //view.setProgress(false)
-                    view.cadastrarUser(response.body()!![0])
+                    if (!response.body()!!.isEmpty()) {
+                        view.atualizarUser(response.body()!![0])
+                    } else {
+                        view.error("Não existe usuario válido com este email.")
+                    }
                 }
 
             })

@@ -5,19 +5,35 @@ import lima.wilquer.contactlist.view.BaseView
 
 interface ContatosContract {
 
-    interface View : BaseView<Presenter> {
+    interface View : BaseView<PresenterLD> {
         fun setProgress(active: Boolean)
 
-        fun deletarContato()
+        fun deletarContato(contato: Contato)
 
         fun listarContato(listContatos: List<Contato>)
 
         fun error(msg: String)
     }
 
-    interface Presenter {
-        fun deletar()
+    interface PresenterLD {
+        fun deletar(_id: String)
 
         fun listar(email: String)
+    }
+
+    interface ViewAE : BaseView<PresenterAE> {
+        fun setProgress(active: Boolean)
+
+        fun editarContato(contato: Contato)
+
+        fun cadastrarContato(contato: Contato)
+
+        fun error(msg: String)
+    }
+
+    interface PresenterAE {
+        fun editar(contato: Contato)
+
+        fun cadastrar(contato: Contato)
     }
 }
