@@ -5,6 +5,6 @@
     <item
         android:id="@+id/adicionar_contato"
         android:title="Adicionar"
-        android:icon="@mipmap/outline_person_add_black_36"
+        android:icon="@mipmap/outline_person_add_white_36"
         app:showAsAction="always"/>
 </menu>

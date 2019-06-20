@@ -8,10 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import kotlinx.android.synthetic.main.fragment_contatos.*
 import kotlinx.android.synthetic.main.fragment_contatos.view.*
 import lima.wilquer.contactlist.R
 import lima.wilquer.contactlist.data.Contato
 import lima.wilquer.contactlist.data.User
+import lima.wilquer.contactlist.util.Constants
 import lima.wilquer.contactlist.util.ObserverDeleteContato
 import lima.wilquer.contactlist.util.RecyclerViewAdapter
 import org.jetbrains.anko.support.v4.ctx
@@ -20,7 +22,7 @@ import org.jetbrains.anko.support.v4.withArguments
 class ContatosFragment : Fragment(), ContatosContract.View, ObserverDeleteContato {
 
     companion object {
-        fun newInstance(user: User) = ContatosFragment().withArguments(Pair("user", user))
+        fun newInstance(user: User) = ContatosFragment().withArguments(Pair(Constants.USER, user))
     }
 
     var user: User? = null
@@ -32,7 +34,7 @@ class ContatosFragment : Fragment(), ContatosContract.View, ObserverDeleteContat
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_contatos, container, false)
         rv = view.recycle_contatos
-        user = arguments!!["user"] as User
+        user = arguments!![Constants.USER] as User
 
         val listener = this
         rv!!.apply {
@@ -44,22 +46,20 @@ class ContatosFragment : Fragment(), ContatosContract.View, ObserverDeleteContat
 
     override fun onResume() {
         super.onResume()
+        //if (!this::presenter.isInitialized) {
+        ListarDeletarPresenter(this)
+        presenter.listar(user!!.email)
         contatosList.clear()
-        if (!this::presenter.isInitialized) {
-            ListarDeletarPresenter(this)
-            presenter.listar(user!!.email)
-        }
+        rv!!.adapter!!.notifyDataSetChanged()
+        //}
     }
 
     override fun setProgress(active: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if(active) progress_contato.visibility = View.VISIBLE else progress_contato.visibility = View.INVISIBLE
     }
 
     override fun deletarContato(contato: Contato) {
-        //contatosList.clear()
         rv!!.adapter!!.notifyDataSetChanged()
-        //rv.adapter.notifyItemChanged()
-        //presenter.listar(user!!.email)
         Toast.makeText(activity, contato.toString(), Toast.LENGTH_LONG).show()
     }
 

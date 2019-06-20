@@ -2,11 +2,13 @@ package lima.wilquer.contactlist.view.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.adicionar_editar_contato.*
 import lima.wilquer.contactlist.R
 import lima.wilquer.contactlist.data.Contato
 import lima.wilquer.contactlist.data.User
+import lima.wilquer.contactlist.util.Constants
 import lima.wilquer.contactlist.util.Mask
 import lima.wilquer.contactlist.util.Session
 import lima.wilquer.contactlist.view.contatos.AdicionarEditarPresenter
@@ -25,7 +27,7 @@ class AdicionarEditarContato : AppCompatActivity(), ContatosContract.ViewAE {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        contato = intent.getSerializableExtra("contato") as Contato?
+        contato = intent.getSerializableExtra(Constants.CONTATO) as Contato?
 
         if (contato != null){
             trocarTextos()
@@ -67,7 +69,7 @@ class AdicionarEditarContato : AppCompatActivity(), ContatosContract.ViewAE {
     }
 
     fun trocarTextos(){
-        add_editar_button.text = "Editar"
+        add_editar_button.text = getString(R.string.editar)
         edit_nome.setText(contato!!.name)
         edit_telefone.setText(contato!!.cellphone)
     }
@@ -80,15 +82,19 @@ class AdicionarEditarContato : AppCompatActivity(), ContatosContract.ViewAE {
     }
 
     override fun setProgress(active: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if(active) {
+            progress_adicionar.visibility = View.VISIBLE
+            add_editar_button.text = ""
+        } else {
+            progress_adicionar.visibility = View.INVISIBLE
+            add_editar_button.text = if(flagEditar) getString(R.string.editar) else getString(R.string.cadastrar)
+        }
+        add_editar_button.isEnabled = !active
     }
 
-    override fun editarContato(contato: Contato) {
-        Toast.makeText(this, contato.toString(), Toast.LENGTH_LONG).show()
-    }
-
-    override fun cadastrarContato(contato: Contato) {
-        Toast.makeText(this, contato.toString(), Toast.LENGTH_LONG).show()
+    override fun retornoCadastrarEditar(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+        finish()
     }
 
     override fun error(msg: String) {

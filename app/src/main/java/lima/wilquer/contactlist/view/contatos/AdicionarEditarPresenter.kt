@@ -19,7 +19,7 @@ class AdicionarEditarPresenter(val view: ContatosContract.ViewAE) : ContatosCont
     }
 
     override fun editar(contato: Contato) {
-        //view.setProgress(true)
+        view.setProgress(true)
 
         doAsync {
             val apiService = RetrofitApi(Constants.URL_GERAL).client.create(ContatosService::class.java)
@@ -36,20 +36,20 @@ class AdicionarEditarPresenter(val view: ContatosContract.ViewAE) : ContatosCont
             val call = apiService.atualizarContato(requestBody)
             call.enqueue(object : Callback<List<Contato>> {
                 override fun onFailure(call: Call<List<Contato>>, t: Throwable) {
-                    //view.setProgress(false)
+                    view.setProgress(false)
                     view.error(t.message.toString())
                 }
 
                 override fun onResponse(call: Call<List<Contato>>, response: Response<List<Contato>>) {
-                    //view.setProgress(false)
-                    view.editarContato(response.body()!![0])
+                    view.setProgress(false)
+                    view.retornoCadastrarEditar("Contato atualizado com sucesso!")
                 }
             })
         }
     }
 
     override fun cadastrar(contato: Contato) {
-        //view.setProgress(true)
+        view.setProgress(true)
 
         doAsync {
             val apiService = RetrofitApi(Constants.URL_GERAL).client.create(ContatosService::class.java)
@@ -65,13 +65,13 @@ class AdicionarEditarPresenter(val view: ContatosContract.ViewAE) : ContatosCont
             val call = apiService.cadastrarContato(requestBody)
             call.enqueue(object : Callback<Contato> {
                 override fun onFailure(call: Call<Contato>, t: Throwable) {
-                    //view.setProgress(false)
+                    view.setProgress(false)
                     view.error(t.message.toString())
                 }
 
                 override fun onResponse(call: Call<Contato>, response: Response<Contato>) {
-                    //view.setProgress(false)
-                    view.cadastrarContato(response.body()!!)
+                    view.setProgress(false)
+                    view.retornoCadastrarEditar("Contato cadastrado com sucesso!")
                 }
 
             })

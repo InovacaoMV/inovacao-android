@@ -20,7 +20,7 @@ class ListarDeletarPresenter(val view: ContatosContract.View) : ContatosContract
     }
 
     override fun listar(email: String) {
-        //view.setProgress(true)
+        view.setProgress(true)
 
         doAsync {
             val apiService = RetrofitApi(Constants.URL_GERAL).client.create(ContatosService::class.java)
@@ -28,12 +28,12 @@ class ListarDeletarPresenter(val view: ContatosContract.View) : ContatosContract
             val call = apiService.getContatos(email)
             call.enqueue(object : Callback<List<Contato>> {
                 override fun onFailure(call: Call<List<Contato>>, t: Throwable) {
-                    //view.setProgress(false)
+                    view.setProgress(false)
                     view.error(t.message.toString())
                 }
 
                 override fun onResponse(call: Call<List<Contato>>, response: Response<List<Contato>>) {
-                    //view.setProgress(false)
+                    view.setProgress(false)
                     if (!response.body()!!.isEmpty()) {
                         view.listarContato(response.body()!!)
                     } else {

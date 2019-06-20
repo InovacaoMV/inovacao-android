@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ContactList</string>
+    <string name="erro_campos_incorretos">Verifique se os campos então corretos.</string>
+    <string name="deletar_usuario">Deletar Usuario</string>
+    <string name="atualizar_usuario">Atualizar Usuario</string>
+    <string name="senha">Senha</string>
+    <string name="email">Email</string>
+    <string name="editar">Editar</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="login">Login</string>
 </resources>

@@ -3,8 +3,16 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    
-    <color name="corPrimaria">#58593F</color>
+
+
+    <color name="corPrimaria">#023059</color>
+    <color name="corSecundaria">#064073</color>
+    <color name="corTerciaria">#37648C</color>
+    <color name="cor">#8FA9BF</color>
+    <color name="corBackground">#F2F2F2</color>
+    <color name="corPreta">#0D0D0D</color>
+    <!--<color name="corPrimaria">#58593F</color>
     <color name="corSecundaria">#BDBF73</color>
     <color name="corTerciaria">#8B8C58</color>
+    <color name="corBackground">#ebebeb</color>-->
 </resources>

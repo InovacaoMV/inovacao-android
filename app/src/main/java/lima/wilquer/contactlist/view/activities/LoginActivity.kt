@@ -8,6 +8,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import lima.wilquer.contactlist.R
 import lima.wilquer.contactlist.data.User
+import lima.wilquer.contactlist.util.Constants
 import lima.wilquer.contactlist.view.user.UserContract
 import lima.wilquer.contactlist.view.user.UserPresenter
 
@@ -16,7 +17,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
     override lateinit var presenter: UserContract.Presenter
     private var email: String? = null
     private var password: String? = null
-    private lateinit var id: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,16 +39,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
                 if (checkValues()) {
                     presenter.login(email!!, password!!)
                 } else {
-                    Toast.makeText(this, "Verifique se os campos então corretos.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.erro_campos_incorretos), Toast.LENGTH_LONG).show()
                 }
             }
             R.id.button_cadastrar -> {
                 if (checkValues()) {
-                    //presenter.atualizar(id, email!!, password!!)
-                    //presenter.delete(id)
                     presenter.cadastrar(email!!, password!!)
                 } else {
-                    Toast.makeText(this, "Verifique se os campos então corretos.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.erro_campos_incorretos), Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -63,14 +61,36 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
         return true
     }
 
-    override fun setProgress(active: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun setProgress(active: Boolean, flagButton: Int) {
+        button_login.isEnabled = !active
+        button_cadastrar.isEnabled = !active
+
+        when (flagButton) {
+            1 -> {
+                if (active) {
+                    progress_login.visibility = View.VISIBLE
+                    button_login.text = ""
+                } else {
+                    progress_login.visibility = View.INVISIBLE
+                    button_login.text = getString(R.string.login)
+                }
+            }
+            2 -> {
+                if (active) {
+                    progress_cadastrar.visibility = View.VISIBLE
+                    button_cadastrar.text = ""
+                } else {
+                    progress_cadastrar.visibility = View.INVISIBLE
+                    button_cadastrar.text = getString(R.string.cadastrar)
+                }
+            }
+        }
     }
 
     override fun loginUser(user: User?) {
         Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show()
         val it = Intent(this@LoginActivity, HomeActivity::class.java)
-        it.putExtra("user", user)
+        it.putExtra(Constants.USER, user)
         startActivity(it)
         finish()
     }
@@ -82,17 +102,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
     override fun cadastrarUser(user: User?) {
         Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show()
         val it = Intent(this@LoginActivity, HomeActivity::class.java)
-        it.putExtra("user", user)
+        it.putExtra(Constants.USER, user)
         startActivity(it)
         finish()
-    }
-
-    override fun deleteUser(_id: String) {
-        Toast.makeText(this, _id, Toast.LENGTH_LONG).show()
-    }
-
-    override fun atualizarUser(user: User?) {
-        Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show()
     }
 
     override fun error(msg: String) {

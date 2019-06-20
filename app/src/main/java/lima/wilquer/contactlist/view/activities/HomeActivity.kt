@@ -9,48 +9,49 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_home.*
 import lima.wilquer.contactlist.R
 import lima.wilquer.contactlist.data.User
+import lima.wilquer.contactlist.util.Constants
 import lima.wilquer.contactlist.util.Session
 import lima.wilquer.contactlist.view.contatos.ContatosFragment
+import lima.wilquer.contactlist.view.perfil.PerfilFragment
 
-class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemReselectedListener {
+class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    var user : User? = null
+    var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        bottom_navigation.setOnNavigationItemReselectedListener(this)
-        user = intent.getSerializableExtra("user") as User
+        bottom_navigation.setOnNavigationItemSelectedListener(this)
+        user = intent.getSerializableExtra(Constants.USER) as User
         Session.loggedUser = user
-
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.framelayout, ContatosFragment.newInstance(user!!))
-        }.commit()
+        bottom_navigation.selectedItemId = R.id.phonelist
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.top_menu, menu)
-        return super.onCreateOptionsMenu(menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        startActivity(Intent(this,AdicionarEditarContato::class.java))
+        startActivity(Intent(this, AdicionarEditarContato::class.java))
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onNavigationItemReselected(p0: MenuItem) {
-        when(p0.itemId){
+    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        when (p0.itemId) {
             R.id.profile -> {
-                /*supportFragmentManager.beginTransaction().apply {
-                replace(R.id.framelayout, ProcurarFragment())
-            }.commit()*/}
+                supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.framelayout, PerfilFragment.newInstance(user!!))
+                }.commit()
+            }
             R.id.phonelist -> {
                 supportFragmentManager.beginTransaction().apply {
                     replace(R.id.framelayout, ContatosFragment.newInstance(user!!))
                 }.commit()
             }
         }
+        return true
     }
 
     override fun onBackPressed() {

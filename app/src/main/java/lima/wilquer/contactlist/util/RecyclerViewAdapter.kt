@@ -10,8 +10,6 @@ import kotlinx.android.synthetic.main.recycler_item.view.*
 import lima.wilquer.contactlist.R
 import lima.wilquer.contactlist.data.Contato
 import android.view.animation.AnimationUtils
-import android.view.animation.Animation
-import android.view.animation.ScaleAnimation
 import lima.wilquer.contactlist.view.activities.AdicionarEditarContato
 
 
@@ -38,7 +36,7 @@ class RecyclerViewAdapter(
 
         holder.editar_btn.setOnClickListener {
             val intent = Intent(context, AdicionarEditarContato::class.java)
-            intent.putExtra("contato", listContatos[p1])
+            intent.putExtra(Constants.CONTATO, listContatos[p1])
             context.startActivity(intent)
         }
 

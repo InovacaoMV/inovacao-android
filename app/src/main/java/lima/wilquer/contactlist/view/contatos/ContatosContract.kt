@@ -24,9 +24,7 @@ interface ContatosContract {
     interface ViewAE : BaseView<PresenterAE> {
         fun setProgress(active: Boolean)
 
-        fun editarContato(contato: Contato)
-
-        fun cadastrarContato(contato: Contato)
+        fun retornoCadastrarEditar(msg: String)
 
         fun error(msg: String)
     }
