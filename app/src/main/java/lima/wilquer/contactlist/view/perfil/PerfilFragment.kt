@@ -6,14 +6,14 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_perfil.*
 import kotlinx.android.synthetic.main.fragment_perfil.view.*
 import lima.wilquer.contactlist.R
 import lima.wilquer.contactlist.data.User
 import lima.wilquer.contactlist.util.Constants
 import lima.wilquer.contactlist.util.Session
-import lima.wilquer.contactlist.view.activities.LoginActivity
+import lima.wilquer.contactlist.view.login.LoginActivity
+import org.jetbrains.anko.support.v4.longToast
 import org.jetbrains.anko.support.v4.withArguments
 
 class PerfilFragment : Fragment(), PerfilContract.View, View.OnClickListener {
@@ -59,7 +59,7 @@ class PerfilFragment : Fragment(), PerfilContract.View, View.OnClickListener {
                 if (checkValues()) {
                     presenter.atualizar(user!!._id, email!!, password!!)
                 } else {
-                    Toast.makeText(activity, getString(R.string.erro_campos_incorretos), Toast.LENGTH_LONG).show()
+                    longToast(getString(R.string.erro_campos_incorretos))
                 }
             }
             R.id.button_deletar -> {
@@ -96,17 +96,17 @@ class PerfilFragment : Fragment(), PerfilContract.View, View.OnClickListener {
     }
 
     override fun deleteUser(_id: String) {
-        Toast.makeText(activity, _id, Toast.LENGTH_LONG).show()
+        longToast(getString(R.string.delete_user))
         startActivity(Intent(activity, LoginActivity::class.java))
         activity?.finish()
     }
 
     override fun atualizarUser(user: User?) {
         Session.loggedUser = user
-        Toast.makeText(activity, user.toString(), Toast.LENGTH_LONG).show()
+        longToast(getString(R.string.atualizar_user))
     }
 
     override fun error(msg: String) {
-        Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
+        longToast(msg)
     }
 }

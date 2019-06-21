@@ -1,9 +1,9 @@
-package lima.wilquer.contactlist.view.user
+package lima.wilquer.contactlist.view.login
 
 import lima.wilquer.contactlist.data.User
 import lima.wilquer.contactlist.view.BaseView
 
-interface UserContract {
+interface LoginContract {
 
     interface View : BaseView<Presenter> {
         fun setProgress(active: Boolean, flagButton : Int)
@@ -17,5 +17,11 @@ interface UserContract {
         fun error(msg: String)
     }
 
-    interface Presenter : BaseUserPresenter
+    interface Presenter {
+        fun login(email: String, senha: String)
+
+        fun buscar(email: String)
+
+        fun cadastrar(email: String, senha: String)
+    }
 }

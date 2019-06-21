@@ -70,7 +70,8 @@ class PerfilPresenter(val view : PerfilContract.View) : PerfilContract.Presenter
                     if (!response.body()!!.isEmpty()) {
                         view.atualizarUser(response.body()!![0])
                     } else {
-                        view.error("Não existe usuario válido com este email.")
+                        val jsonError = JSONObject(response.errorBody()!!.string())
+                        view.error(jsonError.getString("error"))
                     }
                 }
 

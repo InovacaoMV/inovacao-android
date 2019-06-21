@@ -7,5 +7,9 @@
     <string name="email">Email</string>
     <string name="editar">Editar</string>
     <string name="cadastrar">Cadastrar</string>
-    <string name="login">Login</string>
+    <string name="login_txt">Login</string>
+    <string name="atualizar_user">Usuário atualizado com sucesso!</string>
+    <string name="delete_user">Usuário deletado com sucesso!</string>
+    <string name="login_sucesso">Usuário logado com sucesso!</string>
+    <string name="cadastro_sucesso">Usuário cadastrado com sucesso!</string>
 </resources>

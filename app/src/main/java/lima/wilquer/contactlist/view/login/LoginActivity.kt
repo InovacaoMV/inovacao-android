@@ -1,20 +1,21 @@
-package lima.wilquer.contactlist.view.activities
+package lima.wilquer.contactlist.view.login
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_login.*
 import lima.wilquer.contactlist.R
 import lima.wilquer.contactlist.data.User
 import lima.wilquer.contactlist.util.Constants
-import lima.wilquer.contactlist.view.user.UserContract
-import lima.wilquer.contactlist.view.user.UserPresenter
+import lima.wilquer.contactlist.view.activities.HomeActivity
+import org.jetbrains.anko.design.longSnackbar
+import org.jetbrains.anko.design.snackbar
+import org.jetbrains.anko.longToast
 
-class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.View {
+class LoginActivity : AppCompatActivity(), View.OnClickListener, LoginContract.View {
 
-    override lateinit var presenter: UserContract.Presenter
+    override lateinit var presenter: LoginContract.Presenter
     private var email: String? = null
     private var password: String? = null
 
@@ -22,6 +23,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        supportActionBar?.setTitle(R.string.login_txt)
         button_login.setOnClickListener(this)
         button_cadastrar.setOnClickListener(this)
     }
@@ -29,7 +31,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
     override fun onResume() {
         super.onResume()
         if (!this::presenter.isInitialized) {
-            UserPresenter(this)
+            LoginPresenter(this)
         }
     }
 
@@ -39,14 +41,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
                 if (checkValues()) {
                     presenter.login(email!!, password!!)
                 } else {
-                    Toast.makeText(this, getString(R.string.erro_campos_incorretos), Toast.LENGTH_LONG).show()
+                    longToast(getString(R.string.erro_campos_incorretos))
                 }
             }
             R.id.button_cadastrar -> {
                 if (checkValues()) {
                     presenter.cadastrar(email!!, password!!)
                 } else {
-                    Toast.makeText(this, getString(R.string.erro_campos_incorretos), Toast.LENGTH_LONG).show()
+                    longToast(getString(R.string.erro_campos_incorretos))
                 }
             }
         }
@@ -72,7 +74,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
                     button_login.text = ""
                 } else {
                     progress_login.visibility = View.INVISIBLE
-                    button_login.text = getString(R.string.login)
+                    button_login.text = getString(R.string.login_txt)
                 }
             }
             2 -> {
@@ -88,7 +90,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
     }
 
     override fun loginUser(user: User?) {
-        Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show()
+        longToast(getString(R.string.login_sucesso))
         val it = Intent(this@LoginActivity, HomeActivity::class.java)
         it.putExtra(Constants.USER, user)
         startActivity(it)
@@ -96,11 +98,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
     }
 
     override fun buscarUser(user: User?) {
-        Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show()
+        longToast(user.toString())
     }
 
     override fun cadastrarUser(user: User?) {
-        Toast.makeText(this, user.toString(), Toast.LENGTH_LONG).show()
+        longToast(getString(R.string.cadastro_sucesso))
         val it = Intent(this@LoginActivity, HomeActivity::class.java)
         it.putExtra(Constants.USER, user)
         startActivity(it)
@@ -108,6 +110,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, UserContract.Vi
     }
 
     override fun error(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+        longToast(msg)
     }
 }

@@ -1,4 +1,4 @@
-package lima.wilquer.contactlist.view.user
+package lima.wilquer.contactlist.view.login
 
 import lima.wilquer.contactlist.data.User
 import lima.wilquer.contactlist.network.RetrofitApi
@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class UserPresenter(val view: UserContract.View) : UserContract.Presenter {
+class LoginPresenter(val view: LoginContract.View) : LoginContract.Presenter {
 
     init {
         view.presenter = this
@@ -91,7 +91,8 @@ class UserPresenter(val view: UserContract.View) : UserContract.Presenter {
                     if (response.isSuccessful) {
                         view.cadastrarUser(response.body())
                     } else {
-                        view.error(response.message())
+                        val jsonError = JSONObject(response.errorBody()!!.string())
+                        view.error(jsonError.getString("error"))
                     }
                 }
 

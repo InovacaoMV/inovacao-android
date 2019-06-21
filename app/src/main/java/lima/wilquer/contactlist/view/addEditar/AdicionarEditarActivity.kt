@@ -1,4 +1,4 @@
-package lima.wilquer.contactlist.view.activities
+package lima.wilquer.contactlist.view.addEditar
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -11,30 +11,32 @@ import lima.wilquer.contactlist.data.User
 import lima.wilquer.contactlist.util.Constants
 import lima.wilquer.contactlist.util.Mask
 import lima.wilquer.contactlist.util.Session
-import lima.wilquer.contactlist.view.contatos.AdicionarEditarPresenter
-import lima.wilquer.contactlist.view.contatos.ContatosContract
+import org.jetbrains.anko.longToast
+import org.jetbrains.anko.support.v4.longToast
 
-class AdicionarEditarContato : AppCompatActivity(), ContatosContract.ViewAE {
+class AdicionarEditarActivity : AppCompatActivity(), AdicionarEditarContract.View {
 
-    override lateinit var presenter: ContatosContract.PresenterAE
+    override lateinit var presenter: AdicionarEditarContract.Presenter
     var flagEditar: Boolean = false
-    var contato:Contato? = null
-    val user : User = Session.loggedUser!!
+    var contato: Contato? = null
+    val user: User = Session.loggedUser!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.adicionar_editar_contato)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setTitle(R.string.cadastrar)
 
         contato = intent.getSerializableExtra(Constants.CONTATO) as Contato?
 
-        if (contato != null){
+        if (contato != null) {
             trocarTextos()
             flagEditar = true
+            supportActionBar?.setTitle(R.string.editar)
         }
 
-        edit_telefone.addTextChangedListener(Mask.mask(edit_telefone,Mask.FORMAT_FONE))
+        edit_telefone.addTextChangedListener(Mask.mask(edit_telefone, Mask.FORMAT_FONE))
 
         add_editar_button.setOnClickListener {
             if (flagEditar) {
@@ -68,7 +70,7 @@ class AdicionarEditarContato : AppCompatActivity(), ContatosContract.ViewAE {
         return super.onSupportNavigateUp()
     }
 
-    fun trocarTextos(){
+    fun trocarTextos() {
         add_editar_button.text = getString(R.string.editar)
         edit_nome.setText(contato!!.name)
         edit_telefone.setText(contato!!.cellphone)
@@ -82,22 +84,22 @@ class AdicionarEditarContato : AppCompatActivity(), ContatosContract.ViewAE {
     }
 
     override fun setProgress(active: Boolean) {
-        if(active) {
+        if (active) {
             progress_adicionar.visibility = View.VISIBLE
             add_editar_button.text = ""
         } else {
             progress_adicionar.visibility = View.INVISIBLE
-            add_editar_button.text = if(flagEditar) getString(R.string.editar) else getString(R.string.cadastrar)
+            add_editar_button.text = if (flagEditar) getString(R.string.editar) else getString(R.string.cadastrar)
         }
         add_editar_button.isEnabled = !active
     }
 
     override fun retornoCadastrarEditar(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+        longToast(msg)
         finish()
     }
 
     override fun error(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+        longToast(msg)
     }
 }

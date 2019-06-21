@@ -11,7 +11,8 @@ import lima.wilquer.contactlist.R
 import lima.wilquer.contactlist.data.User
 import lima.wilquer.contactlist.util.Constants
 import lima.wilquer.contactlist.util.Session
-import lima.wilquer.contactlist.view.contatos.ContatosFragment
+import lima.wilquer.contactlist.view.addEditar.AdicionarEditarActivity
+import lima.wilquer.contactlist.view.listarDeletar.ListarDeletarFragment
 import lima.wilquer.contactlist.view.perfil.PerfilFragment
 
 class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
@@ -34,7 +35,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        startActivity(Intent(this, AdicionarEditarContato::class.java))
+        startActivity(Intent(this, AdicionarEditarActivity::class.java))
         return super.onOptionsItemSelected(item)
     }
 
@@ -47,7 +48,7 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
             R.id.phonelist -> {
                 supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.framelayout, ContatosFragment.newInstance(user!!))
+                    replace(R.id.framelayout, ListarDeletarFragment.newInstance(user!!))
                 }.commit()
             }
         }

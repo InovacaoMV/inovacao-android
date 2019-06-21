@@ -1,4 +1,4 @@
-package lima.wilquer.contactlist.view.contatos
+package lima.wilquer.contactlist.view.listarDeletar
 
 import lima.wilquer.contactlist.data.Contato
 import lima.wilquer.contactlist.network.ContatosService
@@ -12,28 +12,20 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AdicionarEditarPresenter(val view: ContatosContract.ViewAE) : ContatosContract.PresenterAE {
+class ListarDeletarPresenter(val view: ListarDeletarContract.View) : ListarDeletarContract.PresenterLD {
+
 
     init {
         view.presenter = this
     }
 
-    override fun editar(contato: Contato) {
+    override fun listar(email: String) {
         view.setProgress(true)
 
         doAsync {
             val apiService = RetrofitApi(Constants.URL_GERAL).client.create(ContatosService::class.java)
 
-            val json = JSONObject()
-            json.put("_id", contato._id)
-            json.put("person_email", contato.person_email)
-            json.put("name", contato.name)
-            json.put("user_email", contato.user_email)
-            json.put("cellphone", contato.cellphone)
-
-            val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), json.toString())
-
-            val call = apiService.atualizarContato(requestBody)
+            val call = apiService.getContatos(email)
             call.enqueue(object : Callback<List<Contato>> {
                 override fun onFailure(call: Call<List<Contato>>, t: Throwable) {
                     view.setProgress(false)
@@ -42,27 +34,29 @@ class AdicionarEditarPresenter(val view: ContatosContract.ViewAE) : ContatosCont
 
                 override fun onResponse(call: Call<List<Contato>>, response: Response<List<Contato>>) {
                     view.setProgress(false)
-                    view.retornoCadastrarEditar("Contato atualizado com sucesso!")
+                    if (!response.body()!!.isEmpty()) {
+                        view.listarContato(response.body()!!)
+                    } else {
+                        view.error("Não existe contatos por enquanto")
+                    }
                 }
+
             })
         }
     }
 
-    override fun cadastrar(contato: Contato) {
+    override fun deletar(_id: String, position : Int) {
         view.setProgress(true)
 
         doAsync {
             val apiService = RetrofitApi(Constants.URL_GERAL).client.create(ContatosService::class.java)
 
             val json = JSONObject()
-            json.put("person_email", "")
-            json.put("name", contato.name)
-            json.put("user_email", contato.user_email)
-            json.put("cellphone", contato.cellphone)
+            json.put("_id", _id)
 
             val requestBody: RequestBody = RequestBody.create(MediaType.parse("application/json"), json.toString())
 
-            val call = apiService.cadastrarContato(requestBody)
+            val call = apiService.deletarContato(requestBody)
             call.enqueue(object : Callback<Contato> {
                 override fun onFailure(call: Call<Contato>, t: Throwable) {
                     view.setProgress(false)
@@ -71,11 +65,14 @@ class AdicionarEditarPresenter(val view: ContatosContract.ViewAE) : ContatosCont
 
                 override fun onResponse(call: Call<Contato>, response: Response<Contato>) {
                     view.setProgress(false)
-                    view.retornoCadastrarEditar("Contato cadastrado com sucesso!")
+                    if (response.isSuccessful) {
+                        view.deletarContato(response.body()!!, position)
+                    } else {
+                        val jsonError = JSONObject(response.errorBody()!!.string())
+                        view.error(jsonError.getString("error"))
+                    }
                 }
-
             })
         }
     }
-
 }
