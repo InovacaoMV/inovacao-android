@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/adicionar_contato"
+        android:title="Adicionar"
+        android:icon="@mipmap/outline_person_add_white_36"
+        app:showAsAction="always"/>
+</menu>
