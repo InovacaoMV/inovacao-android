@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">Lista de Contatos</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Não é um nome de usuário válido</string>
+    <string name="invalid_password">Campo obrigatório</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="ja_tenho_conta">Já tenho conta</string>
+    <string name="cadastro_conta">Cadastrar conta</string>
+    <string name="cadastro_contato">Novo contato</string>
+    <string name="bem_vindo">Bem vindo(a)</string>
+    <string name="titulo_sem_conexao">Sem acesso a internet</string>
+    <string name="falha_na_conexao">Falha na conexão</string>
+    <string name="title_activity_lista_de_contatos">Lista de Contatos</string>
+    <string name="nome_do_contato">Nome:</string>
+    <string name="email_contato">Email:</string>
+    <string name="telefone_contato">Telefone:</string>
+    <string name="salvar">Salvar</string>
+    <string name="deletar">Deletar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="atualizar">Atualizar</string>
+    <string name="editar_contato">Editar contato</string>
+    <string name="tentar_novamente">Tentar novamente</string>
+    <string name="tentar_outra_hora">Tentarei mais tarde</string>
+    <string name="logar_novamente">Usar outra conta</string>
+    <string name="perfil">Perfil</string>
+    <string name="logout">Sair</string>
+    <string name="nova_senha">Nova senha:</string>
+    <string name="seu_perfil">Seu perfil</string>
+    <string name="mensagem_sem_internet">Por favor, conecte seu aparelho a internet :)</string>
+    <string name="cadastrado_com_sucesso">Cadastrado com sucesso.</string>
+    <string name="atualizado_com_sucesso">Atualizado com sucesso.</string>
+    <string name="deletado_com_sucesso">Deletado com sucesso.</string>
+
+    <string name="perfil_atualizado_com_sucesso">Perfil atualizado com sucesso.</string>
+    <string name="perfil_deletado_com_sucesso">Que pena… Até a próxima.</string>
+    <string name="lista_de_contatos_vazia">Lista de contatos vazia.</string>
+
+</resources>
