@@ -1,7 +1,8 @@
-package com.example.desafiomv
+package com.example.desafiomv.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.desafiomv.R
 
 class MainActivity : AppCompatActivity() {
 
