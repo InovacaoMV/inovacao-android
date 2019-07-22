@@ -1,31 +1,33 @@
 package com.example.desafiomv.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class User (
 
     @SerializedName("_id")
-    val id: String,
+    var _id: String?,
 
     @SerializedName("email")
-    val email: String,
+    var email: String?,
 
     @SerializedName("password")
-    val password: String,
+    var password: String?,
 
     @SerializedName("error")
-    var error: String
-) {
+    var error: String?
+): Serializable {
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is User) return false
 
-        if (id != other.id) return false
+        if (_id != other._id) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        return id.hashCode()
+        return _id.hashCode()
     }
 }

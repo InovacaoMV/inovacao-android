@@ -1,9 +1,12 @@
 package com.example.desafiomv.config
 
 import com.example.desafiomv.model.Contact
+import com.example.desafiomv.model.ContactDTO
 import com.example.desafiomv.model.User
+import com.example.desafiomv.model.UserDTO
 import io.reactivex.Observable
 import io.reactivex.Single
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface EndPoint {
@@ -14,33 +17,33 @@ interface EndPoint {
     @GET("/api/contact-list/person-email/{user_email}")
     fun getContactList(@Path("user_email") userEmail: String) : Observable<List<Contact>>
 
-    @DELETE("/api/contact-list")
+    @HTTP(method = "DELETE", path = "/api/contact-list", hasBody = true)
     fun deleteContactList(@Body contact: Contact) : Single<Contact>
 
     @POST("/api/contact-list")
-    fun saveContactList(@Body contact: Contact) : Single<Contact>
+    fun saveContactList(@Body contact: ContactDTO) : Single<Contact>
 
     @PUT("/api/contact-list")
-    fun updateContactList(@Body contact: Contact) : Single<Contact>
+    fun updateContactList(@Body contact: Contact) : Single<List<Contact>>
 
 
     /////////////////////////////////////////////////////////
     // USER
     ////////////////////////////////////////////////////////
     @GET("/api/user/email/{email}")
-    fun getUser(@Path("email") email: String) : Single<User>
+    fun getUser(@Path("email") email: String) : Single<List<User>>
 
     @GET("/api/user/email/{email}/password/{password}")
     fun login(@Path("email") email: String,
-              @Path("password") password: String) : Single<User>
+              @Path("password") password: String) : Single<List<User>>
 
-    @DELETE("/api/user")
+    @HTTP(method = "DELETE", path = "/api/user", hasBody = true)
     fun deleteUser(@Body user: User) : Single<User>
 
     @POST("/api/user")
-    fun registerUser(@Body user: User) : Single<User>
+    fun createAccount(@Body user: UserDTO) : Single<User>
 
     @PUT("/api/user")
-    fun updateUser(@Body user: User) : Single<User>
+    fun updateUser(@Body user: User) : Single<List<User>>
 
 }

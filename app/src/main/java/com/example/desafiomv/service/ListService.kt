@@ -2,6 +2,7 @@ package com.example.desafiomv.service
 
 import com.example.desafiomv.config.RetrofitConfig
 import com.example.desafiomv.model.Contact
+import com.example.desafiomv.model.ContactDTO
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -12,7 +13,7 @@ object ListService {
             .flatMap { contacts -> Observable.fromIterable(contacts) }
             .map {
                 Contact(
-                    it.id,
+                    it._id,
                     it.personEmail,
                     it.name,
                     it.userEmail,
@@ -26,11 +27,11 @@ object ListService {
         return RetrofitConfig.instance().deleteContactList(contact)
     }
 
-    fun saveContactList (contact: Contact) : Single<Contact> {
+    fun saveContactList (contact: ContactDTO) : Single<Contact> {
         return RetrofitConfig.instance().saveContactList(contact)
     }
 
-    fun updateContactList (contact: Contact) : Single<Contact> {
+    fun updateContactList (contact: Contact) : Single<List<Contact>> {
         return RetrofitConfig.instance().updateContactList(contact)
     }
 
