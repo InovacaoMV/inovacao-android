@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+                name="viewModel"
+                type="com.example.desafiomv.ui.contacts.upsertContact.SaveContactsViewModel"/>
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_gradient"
+            tools:context=".ui.user.signIn.SignInFragment">
+
+        <include android:id="@+id/toolbar"
+                 layout="@layout/toolbar" app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="parent"/>
+
+        <include android:id="@+id/loading"
+                 layout="@layout/loading"
+                 android:visibility="@{viewModel.loading ? View.VISIBLE : View.GONE }"/>
+
+        <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                    android:id="@+id/card_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="5dp"
+                    android:layout_centerInParent="true"
+                    app:cardElevation="4dp"
+                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="8dp" android:layout_marginEnd="8dp">
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingTop="50dp"
+                        android:paddingBottom="50dp"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/email_text_input_layout"
+                            app:hintTextAppearance="@style/MyHintText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/email_text_input_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/MyEditText"
+                                android:inputType="textEmailAddress"
+                                android:text="@={viewModel.contact.personEmail}"
+                                android:hint="@string/email"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/name_text_input_layout"
+                            app:errorEnabled="true"
+                            app:passwordToggleEnabled="true"
+                            android:layout_marginTop="4dp"
+                            app:hintTextAppearance="@style/MyHintText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/name_text_input_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/MyEditText"
+                                android:inputType="textPersonName"
+                                android:text="@={viewModel.contact.name}"
+                                android:hint="@string/name"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/phone_text_input_layout"
+                            app:errorEnabled="true"
+                            app:passwordToggleEnabled="true"
+                            android:layout_marginTop="4dp"
+                            app:hintTextAppearance="@style/MyHintText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/phone_text_input_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/MyEditText"
+                                android:inputType="numberDecimal"
+                                android:text="@={viewModel.contact.cellPhone}"
+                                android:hint="@string/cell_phone"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                            android:text="@string/save"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@android:color/white"
+                            android:background="@color/colorPrimaryDark"
+                            android:id="@+id/save"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

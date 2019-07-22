@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">DesafioMV</string>
+    <string name="pref_key">pref_key_user</string>
+    <string name="preferences">preferences</string>
+    <string name="create_account">Criar Conta</string>
+    <string name="email">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="login">Entrar</string>
+    <string name="delete_account">Deletar conta</string>
+    <string name="update_account">Atualizar conta</string>
+    <string name="email_empty">E-mail vázio</string>
+    <string name="email_invalid">E-mail inválido</string>
+    <string name="password_empty">Senha vázia</string>
+    <string name="password_low">Por Favor insira uma senha acima de 5 digítos</string>
+    <string name="communication_error">Falha na comunicação com o servidor</string>
+    <string name="network_error">Verifique sua conexão</string>
+    <string name="unknown_error">Erro desconhecido</string>
+    <string name="invalid_parameters_error">Erro ao enviar a requisição, verifique os parâmetros enviados</string>
+    <string name="settings">Configurações</string>
+    <string name="contacts">Contatos</string>
+    <string name="no_connection">Houve um error ao tentar \nconectar-se com a Internet</string>
+    <string name="finish">Sair</string>
+    <string name="name">Nome</string>
+    <string name="save">Salvar</string>
+    <string name="cell_phone">Telefone</string>
+    <string name="success_save">Salvo com sucesso</string>
+    <string name="list_empty">Sem contatos</string>
+</resources>

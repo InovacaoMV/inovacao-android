@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+                name="viewModel"
+                type="com.example.desafiomv.ui.contacts.listContacts.ListContactViewModel"/>
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_gradient"
+            tools:context=".ui.user.signIn.SignInFragment">
+
+        <include android:id="@+id/toolbar"
+                 layout="@layout/toolbar"/>
+
+        <include android:id="@+id/loading"
+                 layout="@layout/loading"
+        android:visibility="gone"/>
+
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rc_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_centerInParent="true"
+                      android:textColor="@android:color/white"
+                      android:visibility="@{viewModel.listEmpty ? View.VISIBLE : View.GONE }"
+                      android:text="@string/list_empty"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/flab_plus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="20dp"
+                    android:src="@android:drawable/ic_menu_add"/>
+        </RelativeLayout>
+    </LinearLayout>
+</layout>
