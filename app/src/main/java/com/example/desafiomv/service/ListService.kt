@@ -8,19 +8,8 @@ import io.reactivex.Single
 
 object ListService {
 
-    fun getContactList (userEmail: String) : Observable<Contact> {
+    fun getContactList (userEmail: String) : Single<List<Contact>> {
         return RetrofitConfig.instance().getContactList(userEmail)
-            .flatMap { contacts -> Observable.fromIterable(contacts) }
-            .map {
-                Contact(
-                    it._id,
-                    it.personEmail,
-                    it.name,
-                    it.userEmail,
-                    it.cellPhone,
-                    it.error
-                )
-            }
     }
 
     fun deleteContactList (contact: Contact) : Single<Contact> {

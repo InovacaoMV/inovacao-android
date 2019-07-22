@@ -18,6 +18,7 @@ import com.example.desafiomv.ui.BaseFragment
 import com.example.desafiomv.ui.contacts.listContacts.ListContactFragment
 import com.example.desafiomv.utils.NetworkChange
 import com.example.desafiomv.utils.PageAnimation
+import com.example.desafiomv.utils.ValidateFields
 import com.google.gson.Gson
 import org.jetbrains.anko.design.snackbar
 import retrofit2.HttpException
@@ -81,42 +82,6 @@ class SignInFragment : BaseFragment() {
         view?.snackbar(msg)
     }
 
-    private fun validEmail() : Boolean {
-        val email = mBinding.emailTextInputText.text.toString().trim()
-
-        val regexEmail = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+\$"
-
-        val matcher = Pattern.compile(regexEmail).matcher(email)
-
-        return if (email.isEmpty()) {
-            mBinding.emailTextInputLayout.error = getString(R.string.email_empty)
-            false
-        } else if (!matcher.matches()) {
-            mBinding.emailTextInputLayout.error = getString(R.string.email_invalid)
-            false
-        } else {
-            mBinding.emailTextInputLayout.error = null
-            true
-        }
-    }
-
-    private fun validPassword() : Boolean {
-        val password = mBinding.passwordTextInputText.text.toString().trim()
-
-        return if (password.isEmpty()) {
-            mBinding.passwordTextInputLayout.error = getString(R.string.password_empty)
-            false
-        }
-        else if (password.length <= 5) {
-            mBinding.passwordTextInputLayout.error = getString(R.string.password_low)
-            false
-        }
-        else {
-            mBinding.passwordTextInputLayout.error = null
-            true
-        }
-    }
-
     private fun observer() {
         mViewModel.error.observe(this, Observer {
             val message = when (it) {
@@ -155,7 +120,8 @@ class SignInFragment : BaseFragment() {
         var flag = true
         mBinding.createLogin.setOnClickListener {
             if (flag) {
-                if (validEmail() && validPassword()) {
+                if (ValidateFields.validEmail(mBinding.emailTextInputText, mBinding.emailTextInputLayout, context!!)
+                    && ValidateFields.validPassword(mBinding.passwordTextInputText, mBinding.passwordTextInputLayout, context!!)) {
                     if (networkChange.hasInternetConnection()) {
                         mViewModel.loginUser()
                     } else {
@@ -163,7 +129,8 @@ class SignInFragment : BaseFragment() {
                     }
                 }
             } else {
-                if (validEmail() && validPassword()) {
+                if (ValidateFields.validEmail(mBinding.emailTextInputText, mBinding.emailTextInputLayout, context!!)
+                    && ValidateFields.validPassword(mBinding.passwordTextInputText, mBinding.passwordTextInputLayout, context!!)) {
                     if (networkChange.hasInternetConnection()) {
 
                         mViewModel.insert()
@@ -198,7 +165,8 @@ class SignInFragment : BaseFragment() {
         }
 
         mBinding.createLogin.setOnClickListener {
-            if (validEmail() && validPassword()) {
+            if (ValidateFields.validEmail(mBinding.emailTextInputText, mBinding.emailTextInputLayout, context!!)
+                && ValidateFields.validPassword(mBinding.passwordTextInputText, mBinding.passwordTextInputLayout, context!!)) {
                 mViewModel.update()
             }
         }

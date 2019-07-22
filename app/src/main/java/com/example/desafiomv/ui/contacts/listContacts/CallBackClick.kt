@@ -4,7 +4,7 @@ import com.example.desafiomv.model.Contact
 
 interface CallBackClick {
 
-    fun onClickDelete()
+    fun onClickDelete(contact: Contact)
 
     fun onClickUpdate(contact: Contact)
 }

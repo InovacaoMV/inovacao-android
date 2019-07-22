@@ -17,7 +17,7 @@ data class Contact (
     @SerializedName("user_email")
     var userEmail: String?,
 
-    @SerializedName("cellPhone")
+    @SerializedName("cellphone")
     var cellPhone: String?,
 
     @SerializedName("error")

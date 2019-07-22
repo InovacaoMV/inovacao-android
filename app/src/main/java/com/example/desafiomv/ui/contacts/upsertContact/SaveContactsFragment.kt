@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.Observer
 
 import com.example.desafiomv.R
@@ -24,6 +25,9 @@ import com.example.desafiomv.ui.user.signIn.SignInFragment
 import com.example.desafiomv.utils.MaskEditUtil
 import com.example.desafiomv.utils.NetworkChange
 import com.example.desafiomv.utils.PageAnimation
+import com.example.desafiomv.utils.ValidateFields
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import org.jetbrains.anko.design.snackbar
 import org.jetbrains.anko.sdk27.coroutines.onClick
@@ -63,7 +67,6 @@ class SaveContactsFragment : BaseFragment() {
 
         if(arguments != null ) {
             val contact = arguments!!.get("contact") as Contact
-
             mViewModel.setContactsParams(contact)
             if (contact != null) {
                 update()
@@ -91,7 +94,9 @@ class SaveContactsFragment : BaseFragment() {
     private fun create() {
         mBinding.save.setOnClickListener {
             if (networkChange.hasInternetConnection()) {
-                if (validEmail() && validName() && validPhone()) {
+                if (ValidateFields.validEmail(mBinding.emailTextInputText, mBinding.emailTextInputLayout, context!!)
+                    && ValidateFields.validName(mBinding.nameTextInputText, mBinding.nameTextInputLayout, context!!)
+                    && ValidateFields.validPhone(mBinding.phoneTextInputText, mBinding.phoneTextInputLayout, context!!)) {
                     mViewModel.insert()
                 }
             } else {
@@ -103,7 +108,9 @@ class SaveContactsFragment : BaseFragment() {
     private fun update () {
         mBinding.save.setOnClickListener {
             if (networkChange.hasInternetConnection()) {
-                if (validEmail() && validName() && validPhone()) {
+                if (ValidateFields.validEmail(mBinding.emailTextInputText, mBinding.emailTextInputLayout, context!!)
+                    && ValidateFields.validName(mBinding.nameTextInputText, mBinding.nameTextInputLayout, context!!)
+                    && ValidateFields.validPhone(mBinding.phoneTextInputText, mBinding.phoneTextInputLayout, context!!)) {
                     mViewModel.update()
                 }
             } else {
@@ -116,49 +123,6 @@ class SaveContactsFragment : BaseFragment() {
        mViewModel.save.observe(this, Observer {
             message(getString(R.string.success_save))
        })
-    }
-
-    private fun validEmail() : Boolean {
-        val email = mBinding.emailTextInputText.text.toString().trim()
-
-        val regexEmail = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+\$"
-
-        val matcher = Pattern.compile(regexEmail).matcher(email)
-
-        return if (email.isEmpty()) {
-            mBinding.emailTextInputLayout.error = getString(R.string.email_empty)
-            false
-        } else if (!matcher.matches()) {
-            mBinding.emailTextInputLayout.error = getString(R.string.email_invalid)
-            false
-        } else {
-            mBinding.emailTextInputLayout.error = null
-            true
-        }
-    }
-
-    private fun validName() : Boolean {
-        val name = mBinding.nameTextInputText.text.toString().trim()
-
-        return if (name.isEmpty()) {
-            mBinding.nameTextInputLayout.error = getString(R.string.email_empty)
-            false
-        }  else {
-            mBinding.nameTextInputLayout.error = null
-            true
-        }
-    }
-
-    private fun validPhone() : Boolean {
-        val phone = mBinding.phoneTextInputText.text.toString().trim()
-
-        return if (phone.isEmpty()) {
-            mBinding.phoneTextInputLayout.error = getString(R.string.email_empty)
-            false
-        }  else {
-            mBinding.phoneTextInputLayout.error = null
-            true
-        }
     }
 
     private fun getUser() : User? {

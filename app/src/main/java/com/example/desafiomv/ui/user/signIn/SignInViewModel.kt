@@ -1,6 +1,7 @@
 package com.example.desafiomv.ui.user.signIn
 
 import android.content.SharedPreferences
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.*
 import com.example.desafiomv.model.User
 import com.example.desafiomv.model.UserDTO
@@ -19,6 +20,7 @@ class SignInViewModel : ViewModel(), LifecycleObserver {
     private var sharedPreferences: SharedPreferences? = null
     var createAccount = SingleLiveEvent<User>()
     var deleteAccount = SingleLiveEvent<Void>()
+    var loading = ObservableBoolean(false)
 
     fun setUserParams(user: User) {
         userMutableLiveData.value = user
@@ -38,10 +40,12 @@ class SignInViewModel : ViewModel(), LifecycleObserver {
     }
 
     fun getUserRequest(email: String) {
+        loading.set(true)
         val disposable = UserService.getUser(email)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                loading.set(false)
                 if (it.isNotEmpty()) {
 
                     if (it[0].error == null) {
@@ -59,10 +63,12 @@ class SignInViewModel : ViewModel(), LifecycleObserver {
     }
 
     fun loginUser() {
+        loading.set(true)
         val disposable = UserService.login(userMutableLiveData.value?.email, userMutableLiveData.value?.password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                loading.set(false)
                 if (it.isNotEmpty()) {
                     if (it[0].error == null) {
                         createAccount.postValue(it[0])
@@ -82,10 +88,12 @@ class SignInViewModel : ViewModel(), LifecycleObserver {
     }
 
     fun insert() {
+        loading.set(true)
         val disposable = UserService.insert(UserDTO(getUser()?.email, getUser()?.password))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                loading.set(false)
                     if (it.error == null) {
                         createAccount.postValue(it)
                     } else {
@@ -100,12 +108,13 @@ class SignInViewModel : ViewModel(), LifecycleObserver {
     }
 
     fun update() {
+        loading.set(true)
         val disposable = UserService.update(getUser()!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                loading.set(false)
                 if (it.isNotEmpty()) {
-
                     if (it[0].error == null) {
                         createAccount.postValue(it[0])
                     } else {
@@ -120,15 +129,16 @@ class SignInViewModel : ViewModel(), LifecycleObserver {
     }
 
     fun deleteUser() {
+        loading.set(true)
         val disposable = UserService.deleteUser(getUser()!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
+                loading.set(false)
                 if (it.error == null) {
                     deleteAccount.call()
                 } else {
                     msg.value = it.error
-
                 }
             }, {
                 error(it)
@@ -138,6 +148,7 @@ class SignInViewModel : ViewModel(), LifecycleObserver {
     }
 
     private fun error(throwable: Throwable) {
+        loading.set(false)
         error.value = throwable
     }
 

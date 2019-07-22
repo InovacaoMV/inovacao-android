@@ -14,8 +14,8 @@ interface EndPoint {
     /////////////////////////////////////////////////////////
     // CONTACT
     ////////////////////////////////////////////////////////
-    @GET("/api/contact-list/person-email/{user_email}")
-    fun getContactList(@Path("user_email") userEmail: String) : Observable<List<Contact>>
+    @GET("/api/contact-list/person-email/{userEmail}")
+    fun getContactList(@Path("userEmail") userEmail: String) : Single<List<Contact>>
 
     @HTTP(method = "DELETE", path = "/api/contact-list", hasBody = true)
     fun deleteContactList(@Body contact: Contact) : Single<Contact>

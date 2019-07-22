@@ -13,9 +13,9 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() 
     private var items = mutableListOf<Contact>()
     private lateinit var callBackClick: CallBackClick
 
-    fun setData(data: Contact, callBackClick: CallBackClick) {
-        this.items.add(data)
-        notifyItemInserted(items.lastIndex)
+    fun setData(data: List<Contact>, callBackClick: CallBackClick) {
+        this.items.addAll(data)
+        notifyDataSetChanged()
         this.callBackClick = callBackClick
     }
 
@@ -29,8 +29,8 @@ class ContactAdapter : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         holder.setContact(items[position])
         holder.binding.imageTrash.setOnClickListener {
-            notifyItemRemoved(position)
-            callBackClick.onClickDelete()
+            callBackClick.onClickDelete(items[position])
+            items.removeAt(position)
         }
 
         holder.binding.layout.setOnClickListener {

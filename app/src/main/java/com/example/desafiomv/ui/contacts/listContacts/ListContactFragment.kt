@@ -90,8 +90,12 @@ class ListContactFragment : BaseFragment(), CallBackClick{
     }
 
     private fun observables() {
-        mViewModel.contactMutableLiveData.observe(this, Observer {
+        mViewModel.listContacts.observe(this, Observer {
             mContactAdapter.setData(it, this)
+        })
+
+        mViewModel.delete.observe(this, Observer {
+            mContactAdapter.notifyDataSetChanged()
         })
     }
 
@@ -102,8 +106,8 @@ class ListContactFragment : BaseFragment(), CallBackClick{
         mBinding.rcList.adapter = mContactAdapter
     }
 
-    override fun onClickDelete() {
-        mViewModel.delete()
+    override fun onClickDelete(contact: Contact) {
+        mViewModel.delete(contact)
     }
 
     override fun onClickUpdate(contact: Contact) {

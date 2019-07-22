@@ -21,6 +21,10 @@
                  app:layout_constraintStart_toStartOf="parent"
                  app:layout_constraintTop_toTopOf="parent"/>
 
+        <include android:id="@+id/loading"
+                 layout="@layout/loading"
+                 android:visibility="@{viewModel.loading ? View.VISIBLE : View.GONE }"/>
+
         <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
@@ -96,7 +100,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:theme="@style/MyEditText"
-                                android:inputType="number"
+                                android:inputType="numberDecimal"
                                 android:text="@={viewModel.contact.cellPhone}"
                                 android:hint="@string/cell_phone"/>
                     </com.google.android.material.textfield.TextInputLayout>
